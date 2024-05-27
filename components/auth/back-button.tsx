@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 function BackButton({ href, label }: { href: string; label: string }) {
   return (
-    <Button>
+    <Button className="font-medium w-full">
       <Link aria-label={label} href={href}>
         {label}
       </Link>
