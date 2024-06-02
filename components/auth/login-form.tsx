@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import {
   Form,
   FormControl,
@@ -19,6 +20,8 @@ import { LoginSchema } from "@/types/login-schema";
 import AuthCard from "./auth-card";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { emailSignIn } from "@/server/actions/email-signin";
+import { useAction } from "next-safe-action/hooks";
 
 function LoginForm() {
   const form = useForm({
@@ -29,8 +32,10 @@ function LoginForm() {
     },
   });
 
+  const { execute, status } = useAction(emailSignIn, {});
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values);
+    execute(values);
   };
   return (
     <AuthCard
@@ -84,7 +89,12 @@ function LoginForm() {
                 <Link href="/auth/reset">Forgot your password</Link>
               </Button>
             </div>
-            <Button type="submit" className="w-full my-2">
+            <Button
+              type="submit"
+              className={cn(
+                "w-full",
+                status === "executing" ? "animate-pulse" : ""
+              )}>
               {"Login"}
             </Button>
           </form>

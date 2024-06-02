@@ -15,6 +15,13 @@
       "when": 1716563712360,
       "tag": "0001_nasty_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1717359395634,
+      "tag": "0002_whole_the_anarchist",
+      "breakpoints": true
     }
   ]
 }
