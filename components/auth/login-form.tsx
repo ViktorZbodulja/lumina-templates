@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Form,
@@ -32,7 +33,13 @@ function LoginForm() {
     },
   });
 
-  const { execute, status } = useAction(emailSignIn, {});
+  const [error, setError] = useState("");
+
+  const { execute, status } = useAction(emailSignIn, {
+    onSuccess(data) {
+      console.log(data);
+    },
+  });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     execute(values);
