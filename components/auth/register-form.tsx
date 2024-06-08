@@ -22,6 +22,8 @@ import AuthCard from "./auth-card";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useAction } from "next-safe-action/hooks";
+//server actions
+import { emailRegister } from "@/server/actions/email-register";
 
 function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -34,10 +36,19 @@ function RegisterForm() {
   });
 
   const [error, setError] = useState("");
+  const { execute, status } = useAction(emailRegister, {
+    onSuccess(data) {
+      if (data.success) {
+        console.log(data.success);
+      }
+    },
+  });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    //execute(values);
+    console.log("before server action runs");
+    execute(values);
   };
+
   return (
     <AuthCard
       cardTitle="Create an account 🎉"
